@@ -10,36 +10,37 @@
 
 import React, { PropTypes } from 'react';
 import Layout from '../../components/Layout';
+import BpmEntryForm from './bpmEntryForm.js';
 import s from './styles.css';
 import { title, html } from './index.md';
 
-class HomePage extends React.Component {
+import Submitter from './bpmEntryApiSubmitter.js'
 
+class HomePage extends React.Component {
+  constructor() {
+    super()
+    this.submitter = new Submitter("http://requestb.in/19vo4p81");
+    this.onBpmSubmit = this.onBpmSubmit.bind(this);
+  }
   static propTypes = {
-    articles: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
     document.title = title;
   }
-
+  onBpmSubmit(entry) {
+    this.submitter.submitEntry(entry)
+      .then(function bpmSubmitSuccess() {
+        console.log("bpmSubmitSuccess!");
+      });
+  }
   render() {
     return (
       <Layout className={s.content}>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-        <h4>Articles</h4>
-        <ul>
-          {this.props.articles.map((article, i) =>
-            <li key={i}><a href={article.url}>{article.title}</a> by {article.author}</li>
-          )}
-        </ul>
-        <p>
-          <br /><br />
-        </p>
+        <BpmEntryForm onSubmit={this.onBpmSubmit}></BpmEntryForm>
       </Layout>
     );
   }
-
 }
 
 export default HomePage;
