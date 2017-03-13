@@ -15,12 +15,17 @@ import s from './styles.css';
 import { title, html } from './index.md';
 
 import Submitter from './bpmEntryApiSubmitter.js'
+import BpmEntryMassager from './bpmEntryMassager.js'
+
 
 class HomePage extends React.Component {
   constructor() {
     super()
-    this.submitter = new Submitter("http://requestb.in/19vo4p81");
     this.onBpmSubmit = this.onBpmSubmit.bind(this);
+    // todo: these instantiations smell, should probably be pulled from IOC or something?
+    // look up patterns for this in React ecosystem
+    this.submitter = new Submitter("http://requestb.in/18qtz1q1");
+    this.massager = new BpmEntryMassager();
   }
   static propTypes = {
   };
@@ -29,7 +34,9 @@ class HomePage extends React.Component {
     document.title = title;
   }
   onBpmSubmit(entry) {
-    this.submitter.submitEntry(entry)
+    var toSubmit = this.massager.massage(entry);
+    console.log("submitting:", toSubmit);
+    this.submitter.submitEntry(toSubmit)
       .then(function bpmSubmitSuccess() {
         console.log("bpmSubmitSuccess!");
       });

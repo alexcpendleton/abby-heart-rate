@@ -11,7 +11,7 @@ class BpmEntryForm extends React.Component {
     this.state = {
       bpm: "",
       painful: false,
-      when: "",
+      occurredAt: "",
       notes: ""
     }
   }
@@ -34,17 +34,17 @@ class BpmEntryForm extends React.Component {
   render() {
     return (
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="bpm">BPM:</label> <input type="text" id="bpm" name="bpm" onChange={this.handleChange} />
-          <br />
+          <label htmlFor="bpm">BPM:<input type="text" id="bpm" name="bpm" onChange={this.handleChange} />
+          </label> <br />
 
-          <label htmlFor="painful">Painful?:</label> <input type="checkbox" id="painful" name="painful" checked={this.state.painful} onChange={this.handleChange} />
-          <br />
+          <label htmlFor="painful">Painful?:<input type="checkbox" id="painful" name="painful" checked={this.state.painful} onChange={this.handleChange} />
+          </label> <br />
 
-          <label htmlFor="when">When:</label> <input type="datetime" id="when" name="when" onChange={this.handleChange} />
-          <br />
+          <label htmlFor="occurredAt">When: <input type="datetime" id="occurredAt" name="occurredAt" onChange={this.handleChange} />
+          </label><br />
 
-          <label htmlFor="notes">Notes:</label> <input type="text" id="notes" name="notes" onChange={this.handleChange} />
-          <br />
+          <label htmlFor="notes">Notes: <input type="text" id="notes" name="notes" onChange={this.handleChange} />
+          </label><br />
 
           <input type="submit" value="Submit" />
         </form>
